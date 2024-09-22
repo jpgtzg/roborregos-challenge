@@ -1,8 +1,11 @@
 // Written by Juan Pablo Gutiérrez
 // 20 09 2024
 
+use std::collections::HashMap;
+
 struct Action {
     name: String,
+    requirements: HashMap<System>,
 }
 
 impl Action {
@@ -20,11 +23,17 @@ impl Action {
         println!("{} executed", self.name);
     }
 
-    fn finalize(&self) {
+    fn finalize(&self, interrupted : bool) {
         println!("{} finalized", self.name);
     }
 
     fn is_finished(&self) -> bool {
         true
+    }
+
+    fn add_requirements(&self, requirements: Vec<System>) {
+        requirements.iter().for_each(|system| {
+            self.requirements.insert(system);
+        });
     }
 }
