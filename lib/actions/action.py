@@ -1,4 +1,4 @@
-from ...lib.system.system import System
+from ..system.system import System
 
 class Action:
 
@@ -6,16 +6,16 @@ class Action:
         self.name = name
         self.requirements = set()
 
-    def start(self):
+    def initialize(self):
         pass
     
     def execute(self ):
         pass
     
     def is_finished(self ) -> bool:
-        pass
+        return False
 
-    def finalize(self, interrupted : bool): 
+    def end(self, interrupted : bool): 
         pass
 
     def add_requirements(self, requirement: System):
