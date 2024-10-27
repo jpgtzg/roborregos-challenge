@@ -6,6 +6,11 @@ from lib.actions.parallel_action_group import ParallelActionGroup # Works
 from lib.actions.wait_until_action import WaitUntilAction  # Works
 from lib.actions.parallel_deadline_group import ParallelDeadlineGroup # Works
 from lib.actions.run_action import RunAction  # Works
+import logging
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(filename="test.log", level=logging.INFO)
+logger.info("Starting test")
 
 scheduler = ActionScheduler()
 
@@ -35,6 +40,7 @@ while True:
 
     scheduler.run()
     if newCommand.is_finished():
+        logger.info("Command finished")
         break
 
 
