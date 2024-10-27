@@ -1,6 +1,9 @@
 from lib.actions.action_interface import ActionInterface
 from lib.system.system import System
 
+import logging
+
+logger = logging.getLogger(__name__)
 class Action(ActionInterface):
     
     def __init__(self, name):
@@ -13,10 +16,6 @@ class Action(ActionInterface):
     def get_requirements(self):
         return self.requirements
         
-    def schedule(self):
-        from lib.actions.action_scheduler import ActionScheduler
-        ActionScheduler().schedule_action(self)
-    
     # Composition methods
     def andThen(self, next_action) -> ActionInterface:
         from lib.actions.sequential_action_group import SequentialActionGroup

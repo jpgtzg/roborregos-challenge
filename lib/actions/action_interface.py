@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from ..system.system import System
 import time
 
 class ActionInterface(ABC):
