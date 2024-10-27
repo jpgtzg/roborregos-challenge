@@ -1,4 +1,7 @@
 from lib.actions.action_interface import ActionInterface
+import logging
+
+logger = logging.getLogger(__name__)
 
 class ActionScheduler():
     
@@ -6,6 +9,7 @@ class ActionScheduler():
 
     def __new__(cls):
         if cls._instance is None:
+            logger.info('Creating ActionScheduler instance')
             cls._instance = super(ActionScheduler, cls).__new__(cls)
         return cls._instance
 
@@ -13,7 +17,8 @@ class ActionScheduler():
         self.action = None
         self.scheduled_actions = set()
 
-    def schedule_action(self, action):
+    def schedule_action(self, action: ActionInterface):
+        logger.info(f'Scheduling action {action}')
         self.scheduled_actions.add(action)
         action.initialize()
 
