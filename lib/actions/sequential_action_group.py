@@ -22,5 +22,8 @@ class SequentialActionGroup(Action):
             if self.current_action_index < len(self.actions):
                 self.actions[self.current_action_index].initialize()
 
+    def end(self, interrupted: bool):
+        pass
+    
     def is_finished(self) -> bool:
         return self.current_action_index >= len(self.actions)

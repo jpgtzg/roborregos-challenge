@@ -5,5 +5,14 @@ class WaitUntilAction(Action):
         super().__init__("WaitUntilCommand")
         self.condition = condition
 
+    def initialize(self):
+        pass
+
+    def execute(self):
+        pass
+
+    def end(self, interrupted: bool):
+        pass
+
     def is_finished(self) -> bool:
         return self.condition()

@@ -10,6 +10,12 @@ class WaitAction(Action):
     def initialize(self):
         self.start_time = time.time()
 
+    def execute(self):
+        pass
+
+    def end(self, interrupted: bool):
+        pass
+
     def is_finished(self) -> bool:
         return time.time() - self.start_time >= self.duration
     
