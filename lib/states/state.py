@@ -1,7 +1,6 @@
 from ..actions.action_interface import ActionInterface
 from ..actions.action_scheduler import ActionScheduler
 
-
 class State:
 
     def __init__(self, name : str, start_action : ActionInterface, execute_action :ActionInterface, exit_action: ActionInterface):

@@ -1,7 +1,7 @@
 import numpy as np
 import math
 from typing import List
-from .pose2d import Pose2d
+#from .pose2d import Pose2d
 
 class RobotConfig:
     def __init__(self, robot_radius: float, wheel_radius: float):
@@ -15,8 +15,8 @@ class RobotVelocity:
         self.theta = theta
 
 class Kinematics:
-    def __init__(self, config: RobotConfig):
-        self.config = config
+    """ def __init__(self, config: RobotConfig):
+        self.config = config """
 
     def move_motors(self, degree: int, speed: int) -> List[int]:
         """Calculate wheel speeds based on the robot's heading and speed."""
@@ -50,7 +50,7 @@ class Kinematics:
         # Placeholder method: needs to be implemented based on the robot's kinematic model
         pass
 
-    def get_wheels_angular_velocities(self, robot_velocity: RobotVelocity, robot_position: Pose2d) -> List[float]:
+"""     def get_wheels_angular_velocities(self, robot_velocity: RobotVelocity, robot_position: Pose2d) -> List[float]:
         x = np.array([
             [-math.sin(robot_position.theta + (math.pi / 4)), math.cos(robot_position.theta + (math.pi / 4)), self.config.robot_radius],
             [-math.sin(robot_position.theta + (3 * math.pi / 4)), math.cos(robot_position.theta + (3 * math.pi / 4)), self.config.robot_radius],
@@ -64,3 +64,4 @@ class Kinematics:
         
         result = np.dot(np.dot(x, vel), rad) 
         return result.tolist()
+ """

@@ -21,7 +21,7 @@ class Motor:
         self.pwm : GPIO.PWM = GPIO.PWM(self.PWM, 100)
         self.pwm.start(0)        
 
-    def moveMotor(self, angularVelocity : float):
+    def move_motor(self, angularVelocity : float):
         control = abs(angularVelocity)
         control = max(0, min(control, 100))
 
