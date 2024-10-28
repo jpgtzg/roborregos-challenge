@@ -1,4 +1,3 @@
-import RPi.GPIO as GPIO
 from chassis import Chassis
 from hardware.motor import Motor
 
