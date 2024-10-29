@@ -2,7 +2,7 @@ import math
 
 class Twist2d:
     """A change in distance along a 2D arc since the last pose update."""
-
+    
     def __init__(self, dx=0.0, dy=0.0, dtheta=0.0):
         """
         Constructs a Twist2d with the given values.

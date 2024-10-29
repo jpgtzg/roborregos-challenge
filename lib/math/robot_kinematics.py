@@ -1,3 +1,5 @@
+from lib.math.twist2d import Twist2d
+from lib.math.wheel_positions import WheelPositions
 import numpy as np
 import math
 from typing import List
@@ -8,16 +10,11 @@ class RobotConfig:
         self.robot_radius = robot_radius
         self.wheel_radius = wheel_radius
 
-class RobotVelocity:
-    def __init__(self, x: float, y: float, theta: float):
-        self.x = x
-        self.y = y
-        self.theta = theta
-
 class Kinematics:
-    """ def __init__(self, config: RobotConfig):
-        self.config = config """
+    def __init__(self, config: RobotConfig):
+        self.config = config
 
+    @staticmethod
     def move_motors(self, degree: int, speed: int) -> List[int]:
         """Calculate wheel speeds based on the robot's heading and speed."""
         m1 = math.cos(math.radians(45 + degree))
@@ -45,23 +42,47 @@ class Kinematics:
 
         return motor_speeds
 
-    def get_robot_velocity(self, wheel_velocities: List[float]) -> RobotVelocity:
-        """Calculates robot velocity based on wheel velocities."""
-        # Placeholder method: needs to be implemented based on the robot's kinematic model
-        pass
+    def get_wheel_velocities(self, vx : float, vy: float, w: float, phi: float) -> List[float]:
+        
+        """
+        Calculate the wheel velocities based on the robot's current velocity and angular velocity. 
 
-"""     def get_wheels_angular_velocities(self, robot_velocity: RobotVelocity, robot_position: Pose2d) -> List[float]:
-        x = np.array([
-            [-math.sin(robot_position.theta + (math.pi / 4)), math.cos(robot_position.theta + (math.pi / 4)), self.config.robot_radius],
-            [-math.sin(robot_position.theta + (3 * math.pi / 4)), math.cos(robot_position.theta + (3 * math.pi / 4)), self.config.robot_radius],
-            [-math.sin(robot_position.theta + (5 * math.pi / 4)), math.cos(robot_position.theta + (5 * math.pi / 4)), self.config.robot_radius],
-            [-math.sin(robot_position.theta + (7 * math.pi / 4)), math.cos(robot_position.theta + (7 * math.pi / 4)), self.config.robot_radius]
-        ])
-        
-        vel = np.array([robot_velocity.x, robot_velocity.y, robot_velocity.theta])
-        
-        rad = 1 / self.config.wheel_radius
-        
-        result = np.dot(np.dot(x, vel), rad) 
-        return result.tolist()
- """
+        :param vx: The x component of the robot's velocity.
+        :param vy: The y component of the robot's velocity.
+        :param w: The robot's angular velocity.
+        :param phi: The robot's heading.
+        :return: The wheel velocities.
+        """
+
+        t = np.array([-math.sin(phi  + math.pi/4), math.cos(phi + math.pi/4), self.config.robot_radius],
+                     [-math.sin(phi  + 3 * math.pi/4), math.cos(phi + 3 * math.pi/4), self.config.robot_radius],
+                     [-math.sin(phi  + 5 * math.pi/4), math.cos(phi + 5 * math.pi/4), self.config.robot_radius],
+                     [-math.sin(phi  + 7 * math.pi/4), math.cos(phi + 7 * math.pi/4), self.config.robot_radius])
+
+        v = np.array([vx, vy, w])
+        w = np.dot(t, v)
+        w1, w2, w3, w4 = w[0], w[1], w[2], w[3]
+        return [w1, w2, w3, w4]
+    
+    def get_robot_velocity(self, wheel_velocities: List[float], phi: float) -> List[float]:
+        """
+        Calculate the robot's velocity and angular velocity based on the wheel velocities.
+
+        :param wheel_velocities: The wheel velocities.
+        :param phi: The robot's heading.
+        :return: The robot's velocity and angular velocity.
+        """
+
+        w1, w2, w3, w4 = wheel_velocities
+
+        D = 1/2 * np.array([-math.sin(phi + math.pi/4), math.cos(phi + math.pi/4), 2/self.config.robot_radius],
+                           [-math.sin(phi + 3 * math.pi/4), math.cos(phi + 3 * math.pi/4), 2/self.config.robot_radius],
+                           [-math.sin(phi + 5 * math.pi/4), math.cos(phi + 5 * math.pi/4), 2/self.config.robot_radius],
+                           [-math.sin(phi + 7 * math.pi/4), math.cos(phi + 7 * math.pi/4), 2/self.config.robot_radius])
+
+        D = 1/2 * np.transpose(D)
+
+        w = np.array([w1, w2, w3, w4])
+        v = np.dot(D, w)
+        vx, vy, w = v[0], v[1], v[2]
+        return [vx, vy, w]
