@@ -11,6 +11,8 @@ class System:
     def add_state(self, *state: State):
         self.states.append(*state)
 
+    # IM ONLY MISSING TO SEE HOW EACH STATE WILL BE ACTIVATED
+
     def start(self):
         pass
 

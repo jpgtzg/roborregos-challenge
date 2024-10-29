@@ -8,41 +8,34 @@ from lib.actions.parallel_deadline_group import ParallelDeadlineGroup # Works
 from lib.actions.run_action import RunAction  # Works
 import logging
 
+from systems.chassis import Chassis
+from hardware.motor import Motor
+
 logger = logging.getLogger(__name__)
 logging.basicConfig(filename="test.log", level=logging.INFO)
 logger.info("Starting test")
 
 scheduler = ActionScheduler()
 
-condition = False
+chassis_system = Chassis(
+    motor1=Motor(IN1=11, IN2=12, PWM=13, inverted=False),
+    motor2=Motor(IN1=15, IN2=16, PWM=18, inverted=True),
+    motor3=Motor(IN1=19, IN2=21, PWM=22, inverted=False),
+    motor4=Motor(IN1=23, IN2=24, PWM=26, inverted=True)
+)
 
-def getCondition():
-    return condition
+moveAction = RunAction("MoveAction", chassis_system.move)
 
-waitAction = WaitUntilAction(getCondition)
+from lib.math.robot_kinematics import Kinematics
 
-printAction = InstantAction(lambda: print("Hello World!"))
+robot_kinematics = Kinematics()
 
-newCommand = waitAction.andThen(printAction)
+move_action = RunAction("MoveAction", lambda: chassis_system.move(100, 0, 0))
 
-scheduler.schedule_action(newCommand)
-
-import time
-
-startTime = time.time()
+scheduler.schedule_action(move_action)
 
 while True:
-    difference = time.time() - startTime
-    print(difference)
-
-    if difference > 5:
-        condition = True
-
     scheduler.run()
-    if newCommand.is_finished():
-        logger.info("Command finished")
-        break
-
 
 """ printAction = InstantAction("PrintAction", lambda: print("Hello World!"))
 
