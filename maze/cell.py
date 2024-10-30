@@ -25,9 +25,9 @@ class Cell:
         """
         if self.x == other.x:
             if self.y == other.y + 1:
-                return "left"
-            elif self.y == other.y - 1:
                 return "right"
+            elif self.y == other.y - 1:
+                return "left"
         elif self.y == other.y:
             if self.x == other.x + 1:
                 return "forward"

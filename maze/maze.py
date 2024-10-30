@@ -38,9 +38,9 @@ class Maze:
     def get_neighbors(self, x: int, y: int) -> list:
         """Return the unvisited neighbors of the cell at the given coordinates."""
         neighbors = []
-        if y > 0: neighbors.append(self.grid[y - 1][x])
-        if x < self.width - 1: neighbors.append(self.grid[y][x + 1])
         if y < self.height - 1: neighbors.append(self.grid[y + 1][x])
+        if x < self.width - 1: neighbors.append(self.grid[y][x + 1])
+        if y > 0: neighbors.append(self.grid[y - 1][x])
         if x > 0: neighbors.append(self.grid[y][x - 1])
         return [cell for cell in neighbors if not cell.visited]
     
@@ -56,10 +56,10 @@ class Maze:
         """Print a simple visual representation of the maze."""
         for row in self.grid:
             for cell in row:
-                walls = []
-                if cell.top: walls.append("T")
+                pos = f"{cell.x} , {cell.y}"
+                """ if cell.top: walls.append("T")
                 if cell.right: walls.append("R")
                 if cell.bottom: walls.append("B")
-                if cell.left: walls.append("L")
-                print(f"Cell({','.join(walls)})", end=" ")
+                if cell.left: walls.append("L") """
+                print(f"Cell({pos})", end=" ")
             print()
