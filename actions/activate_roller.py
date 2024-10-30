@@ -1,5 +1,5 @@
 from lib.actions.run_action import RunAction
-from lib.system.system import System
+from systems.intake import Intake
 from ..constants import Constants
 import logging
 
@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 class ActivateRoller(RunAction):
 
-    def __init__(self,  roller_system: System):
+    def __init__(self,  roller_system: Intake):
         super().__init__("Activate Roller")
         self.roller_system = roller_system
 
