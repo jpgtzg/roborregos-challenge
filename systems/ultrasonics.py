@@ -4,12 +4,12 @@ from hardware.ultrasonic import Ultrasonic
 
 class Ultrasonics(Action):
 
-    def __init__(self, ultrasonic1_port, ultrasonic2_port, ultrasonic3_port):
+    def __init__(self, ultrasonic1: Ultrasonic, ultrasonic2 : Ultrasonic, ultrasonic3 : Ultrasonic):
         super().__init__("Ultrasonic System")
 
-        self.ultrasonic1 = Ultrasonic(ultrasonic1_port)
-        self.ultrasonic2 = Ultrasonic(ultrasonic2_port)
-        self.ultrasonic3 = Ultrasonic(ultrasonic3_port)
+        self.ultrasonic1 = ultrasonic1
+        self.ultrasonic2 = ultrasonic2
+        self.ultrasonic3 = ultrasonic3
         
     def start(self):
         pass

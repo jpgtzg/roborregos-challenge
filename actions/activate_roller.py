@@ -13,5 +13,5 @@ class ActivateRoller(RunAction):
 
     def execute(self):
         logger.info("Activating Roller")
-        self.roller_system.set(Constants().RollerConstants().ROLLER_SPEED)
+        self.roller_system.set(Constants().IntakeConstants().ROLLER_SPEED)
         pass
