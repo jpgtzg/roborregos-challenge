@@ -1,4 +1,4 @@
-from chassis import Chassis
+from systems.chassis import Chassis
 from hardware.motor import Motor
 
 chassis_system = None
