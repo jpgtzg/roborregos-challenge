@@ -1,7 +1,7 @@
 from lib.system import system
 from hardware.motor import Motor
 from lib.math.robot_kinematics import Kinematics
-from math import sqrt
+from math import sin, cos
 
 class Chassis(system.System):
 
@@ -23,11 +23,12 @@ class Chassis(system.System):
     def update(self):     
         pass
 
-    def move(self, vx: float, vy: float, omega: float):
+    def move(self, v: float, omega: float, theta: float) -> None:
+        
+        vx = v * cos(theta)
+        vy = v * sin(theta)
 
-        v = sqrt(vx**2 + vy**2)
+        wheel_velocities = self.kinematics.get_wheel_velocities(vx, vy, omega, theta)
 
-        vel_target = self.kinematics.move_motors(v, omega)
-
-        for vel, motor in zip(vel_target, [self.motor1, self.motor2, self.motor3, self.motor4]):
+        for vel, motor in zip(wheel_velocities, [self.motor1, self.motor2, self.motor3, self.motor4]):
             motor.move_motor(vel)
