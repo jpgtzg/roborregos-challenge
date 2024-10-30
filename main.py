@@ -3,6 +3,7 @@ from systems.intake import Intake
 from systems.ultrasonics import Ultrasonics
 from hardware.motor import Motor
 from hardware.ultrasonic import Ultrasonic
+from lib.actions.action_scheduler import ActionScheduler
 from constants import Constants
 
 chassis_system = None
@@ -28,7 +29,9 @@ def initSystems():
         ultrasonic2=Ultrasonic(trigger_pin=Constants.UltraSonicConstants.ULTRASONIC2_TRIG, echo_pin=Constants.UltraSonicConstants.ULTRASONIC2_ECHO),
         ultrasonic3=Ultrasonic(trigger_pin=Constants.UltraSonicConstants.ULTRASONIC3_TRIG, echo_pin=Constants.UltraSonicConstants.ULTRASONIC3_ECHO)
     )
-    
+
+    ActionScheduler().register_system(chassis_system, intake, ultrasonics)
+
 def start():
     pass
 

@@ -25,6 +25,9 @@ class ActionScheduler():
         action.initialize()
 
     def run(self):
+        for system in self.registered_systems:
+            system.update()
+
         actions_to_remove = []
         
         for action in self.scheduled_actions:
@@ -36,5 +39,5 @@ class ActionScheduler():
         for action in actions_to_remove:
             self.scheduled_actions.remove(action)
 
-    def register_system(self, system: System):
-        self.registered_systems.add(system)
+    def register_system(self, *systems: System):
+        self.registered_systems.update(systems)
