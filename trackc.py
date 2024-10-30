@@ -1,29 +1,20 @@
 from maze.cell import Cell
 from maze.maze import Maze
 
-
-# Example usage
 width, height = 5, 3
 maze = Maze(width, height)
 
-# Remove some walls to create paths // TODO ADD BASED OFF SENSOR DATA
+# Remove some walls to create paths
 maze.add_wall_between(1, 0, 1, 1)
-""" maze.add_wall_between(1, 1, 2, 1)
+maze.add_wall_between(1, 1, 2, 1)
 maze.add_wall_between(2, 0, 2, 2)
 maze.add_wall_between(4, 1, 4, 0)
-"""
+
 maze.set_color(1, 0, "black")
 
-# Display the maze structure
 maze.display()
 
-# Create DFS Algorithm to traverse the entire maze 
-
 movements = []
-
-cell1 = maze.get_cell(3, 1)
-cell2 = maze.get_cell(3, 2)
-
 
 # Psuedo code for DFS
 def dfs(x, y):
@@ -82,11 +73,12 @@ def dfs(x, y):
 #dfs(4, 1)
 #print(visited)
 
-""" cell = maze.get_cell(4, 1)
-neighbors = maze.get_neighbors(4, 1)
+cell = maze.get_cell(3, 1)
+neighbors = maze.get_neighbors(3, 1)
 
 for neighbor in neighbors:
+    print(f"Cell: {cell.x}, {cell.y} | Neighbor: {neighbor.x}, {neighbor.y}")
     print(cell.get_relative_position(neighbor))
 
- """
+maze.display()
 # Display the maze structure after DFS
