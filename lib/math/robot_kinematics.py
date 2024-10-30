@@ -14,34 +14,6 @@ class Kinematics:
     def __init__(self, config: RobotConfig):
         self.config = config
 
-    @staticmethod
-    def move_motors(self, degree: int, speed: int) -> List[int]:
-        """Calculate wheel speeds based on the robot's heading and speed."""
-        m1 = math.cos(math.radians(45 + degree))
-        m2 = math.cos(math.radians(135 + degree))
-        m3 = math.cos(math.radians(225 + degree))
-        m4 = math.cos(math.radians(315 + degree))
-
-        speedA = abs(int(m1 * speed))
-        speedB = abs(int(m2 * speed))
-        speedC = abs(int(m3 * speed))
-        speedD = abs(int(m4 * speed))
-
-        # Simulating motor movements (forward or backward)
-        motors_directions = [
-            "forward" if m1 >= 0 else "backward",
-            "forward" if m2 >= 0 else "backward",
-            "forward" if m3 >= 0 else "backward",
-            "forward" if m4 >= 0 else "backward",
-        ]
-
-        # Print motor speeds and directions (or implement actual motor control)
-        motor_speeds = [speedA, speedB, speedC, speedD]
-        for i in range(4):
-            print(f"Motor {i+1}: Speed = {motor_speeds[i]}, Direction = {motors_directions[i]}")
-
-        return motor_speeds
-
     def get_wheel_velocities(self, vx : float, vy: float, w: float, phi: float) -> List[float]:
         
         """
