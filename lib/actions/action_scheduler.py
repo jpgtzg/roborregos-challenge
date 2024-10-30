@@ -1,4 +1,5 @@
 from lib.actions.action_interface import ActionInterface
+from lib.system.system import System
 import logging
 
 logger = logging.getLogger(__name__)
@@ -16,6 +17,7 @@ class ActionScheduler():
     def __init__(self):
         self.action = None
         self.scheduled_actions = set()
+        self.registered_systems = set()
 
     def schedule_action(self, action: ActionInterface):
         logger.info(f'Scheduling action {action}')
@@ -33,3 +35,6 @@ class ActionScheduler():
         
         for action in actions_to_remove:
             self.scheduled_actions.remove(action)
+
+    def register_system(self, system: System):
+        self.registered_systems.add(system)

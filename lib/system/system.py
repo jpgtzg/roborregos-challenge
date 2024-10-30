@@ -1,4 +1,3 @@
-from lib.states.state import State
 import logging
 
 class System:
@@ -6,26 +5,14 @@ class System:
         self.name = name
         self.states = []
         self.current_state = None
+
         pass
 
-    def add_state(self, *state: State):
-        self.states.append(*state)
-
-    # IM ONLY MISSING TO SEE HOW EACH STATE WILL BE ACTIVATED
+    # TODO IM ONLY MISSING TO SEE HOW EACH STATE WILL BE ACTIVATED
 
     def start(self):
         pass
 
     def update(self):     
         pass
-
-    def set_state(self, new_state: State):
-        if new_state is None:
-            return
-        
-        if new_state in self.states:
-            self.current_state = new_state
-            logging.info(f'System {self.name} state set to {new_state}')
-        else:
-            logging.error(f"Error: State {new_state} is not in the states list.")
 
