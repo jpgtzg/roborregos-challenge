@@ -31,20 +31,21 @@ class Constants:
         MOTOR1_IN2 = 12
         MOTOR1_PWM = 13
 
-        MOTOR2_IN1 = 15
-        MOTOR2_IN2 = 16
-        MOTOR2_PWM = 18
+        MOTOR2_IN1 = 16
+        MOTOR2_IN2 = 18
+        MOTOR2_PWM = 15
 
         MOTOR3_IN1 = 19
         MOTOR3_IN2 = 21
         MOTOR3_PWM = 22
 
-        MOTOR4_IN1 = 23
-        MOTOR4_IN2 = 24
-        MOTOR4_PWM = 26
+        MOTOR4_IN1 = 24
+        MOTOR4_IN2 = 26
+        MOTOR4_PWM = 23
 
         MOTOR1_INVERTED = False
         MOTOR2_INVERTED = True
         MOTOR3_INVERTED = False
         MOTOR4_INVERTED = True
     
+    #29, 31 IR 

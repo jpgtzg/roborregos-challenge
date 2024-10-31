@@ -18,10 +18,10 @@ logger.info("Starting test")
 scheduler = ActionScheduler()
 
 chassis_system = Chassis(
-    motor1=Motor(IN1=11, IN2=12, PWM=13, inverted=False),
-    motor2=Motor(IN1=15, IN2=16, PWM=18, inverted=True),
-    motor3=Motor(IN1=19, IN2=21, PWM=22, inverted=False),
-    motor4=Motor(IN1=23, IN2=24, PWM=26, inverted=True)
+    motor1=Motor(IN1=Constants.ChassisConstants.MOTOR1_IN1, IN2=Constants.ChassisConstants.MOTOR1_IN2, PWM=Constants.ChassisConstants.MOTOR1_PWM, inverted=Constants.ChassisConstants.MOTOR1_INVERTED),
+    motor2=Motor(IN1=Constants.ChassisConstants.MOTOR2_IN1, IN2=Constants.ChassisConstants.MOTOR2_IN2, PWM=Constants.ChassisConstants.MOTOR2_PWM, inverted=Constants.ChassisConstants.MOTOR2_INVERTED),
+    motor3=Motor(IN1=Constants.ChassisConstants.MOTOR3_IN1, IN2=Constants.ChassisConstants.MOTOR3_IN2, PWM=Constants.ChassisConstants.MOTOR3_PWM, inverted=Constants.ChassisConstants.MOTOR3_INVERTED),
+    motor4=Motor(IN1=Constants.ChassisConstants.MOTOR4_IN1, IN2=Constants.ChassisConstants.MOTOR4_IN2, PWM=Constants.ChassisConstants.MOTOR4_PWM, inverted=Constants.ChassisConstants.MOTOR4_INVERTED)
 )
 
 moveAction = RunAction("MoveAction", chassis_system.move)

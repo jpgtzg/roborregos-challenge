@@ -27,7 +27,7 @@ def dfs(x, y):
         pos = maze.get_cell(x, y).get_relative_position(neighbor)
 
         if pos == "left":
-            if (checkLeftWall()) :
+            if (checkLeftWall()):
                 maze.add_wall_between(x, y, x, y-1)
                 continue
             moveLeft()
