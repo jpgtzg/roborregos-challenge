@@ -1,6 +1,6 @@
 from lib.system import system
 from hardware.motor import Motor
-from lib.math.robot_kinematics import Kinematics
+from lib.math.robot_kinematics import Kinematics, RobotConfig
 from math import sin, cos
 
 class Chassis(system.System):
@@ -12,8 +12,10 @@ class Chassis(system.System):
         self.motor2 = motor2
         self.motor3 = motor3
         self.motor4 = motor4
+
+        config = RobotConfig(robot_radius=0.23, wheel_radius=0.051)
         
-        self.kinematics = Kinematics()
+        self.kinematics = Kinematics(config)
 
         pass
 

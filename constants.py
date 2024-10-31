@@ -43,7 +43,7 @@ class Constants:
         MOTOR4_IN2 = 26
         MOTOR4_PWM = 23
 
-        MOTOR1_INVERTED = False
+        MOTOR1_INVERTED = True
         MOTOR2_INVERTED = True
         MOTOR3_INVERTED = False
         MOTOR4_INVERTED = True

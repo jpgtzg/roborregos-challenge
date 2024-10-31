@@ -14,8 +14,7 @@ class Kinematics:
     def __init__(self, config: RobotConfig):
         self.config = config
 
-    def get_wheel_velocities(self, vx : float, vy: float, w: float, phi: float) -> List[float]:
-        
+    def get_wheel_velocities(self, vx: float, vy: float, w: float, phi: float) -> List[float]:
         """
         Calculate the wheel velocities based on the robot's current velocity and angular velocity. 
 
@@ -26,15 +25,19 @@ class Kinematics:
         :return: The wheel velocities.
         """
 
-        t = np.array([-math.sin(phi  + math.pi/4), math.cos(phi + math.pi/4), self.config.robot_radius],
-                     [-math.sin(phi  + 3 * math.pi/4), math.cos(phi + 3 * math.pi/4), self.config.robot_radius],
-                     [-math.sin(phi  + 5 * math.pi/4), math.cos(phi + 5 * math.pi/4), self.config.robot_radius],
-                     [-math.sin(phi  + 7 * math.pi/4), math.cos(phi + 7 * math.pi/4), self.config.robot_radius])
+        # Define the transformation matrix `t` correctly as a 2D array
+        t = np.array([
+            [-math.sin(phi + math.pi/4), math.cos(phi + math.pi/4), self.config.robot_radius],
+            [-math.sin(phi + 3 * math.pi/4), math.cos(phi + 3 * math.pi/4), self.config.robot_radius],
+            [-math.sin(phi + 5 * math.pi/4), math.cos(phi + 5 * math.pi/4), self.config.robot_radius],
+            [-math.sin(phi + 7 * math.pi/4), math.cos(phi + 7 * math.pi/4), self.config.robot_radius]
+        ])
 
         v = np.array([vx, vy, w])
         w = np.dot(t, v)
         w1, w2, w3, w4 = w[0], w[1], w[2], w[3]
         return [w1, w2, w3, w4]
+
     
     def get_robot_velocity(self, wheel_velocities: List[float], phi: float) -> List[float]:
         """

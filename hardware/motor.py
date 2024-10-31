@@ -30,7 +30,7 @@ class Motor:
         if control == 0:
             self.pwm.ChangeDutyCycle(0)
         else:
-            if self.inverted:
+            if self.inverted:        
                 GPIO.output(self.IN1, GPIO.LOW if angularVelocity < 0 else GPIO.HIGH)
                 GPIO.output(self.IN2, GPIO.HIGH if angularVelocity < 0 else GPIO.LOW)
             else:

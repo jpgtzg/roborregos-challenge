@@ -18,25 +18,29 @@ logger.info("Starting test")
 
 scheduler = ActionScheduler()
 
-chassis_system = Chassis(
+""" chassis_system = Chassis(
     motor1=Motor(IN1=Constants.ChassisConstants.MOTOR1_IN1, IN2=Constants.ChassisConstants.MOTOR1_IN2, PWM=Constants.ChassisConstants.MOTOR1_PWM, inverted=Constants.ChassisConstants.MOTOR1_INVERTED),
     motor2=Motor(IN1=Constants.ChassisConstants.MOTOR2_IN1, IN2=Constants.ChassisConstants.MOTOR2_IN2, PWM=Constants.ChassisConstants.MOTOR2_PWM, inverted=Constants.ChassisConstants.MOTOR2_INVERTED),
-    motor3=Motor(IN1=Constants.ChassisConstants.MOTOR3_IN1, IN2=Constants.ChassisConstants.MOTOR3_IN2, PWM=Constants.ChassisConstants.MOTOR3_PWM, inverted=Constants.ChassisConstants.MOTOR3_INVERTED),
-    motor4=Motor(IN1=Constants.ChassisConstants.MOTOR4_IN1, IN2=Constants.ChassisConstants.MOTOR4_IN2, PWM=Constants.ChassisConstants.MOTOR4_PWM, inverted=Constants.ChassisConstants.MOTOR4_INVERTED)
-)
+    motor3=Motor(IN1=Constants.ChassisConstants.MOTOR3_IN1, IN2=Constants.ChassisConstants.MOTOR3_IN2, PWM=  Constants.ChassisConstants.MOTOR3_PWM, inverted=Constants.ChassisConstants.MOTOR3_INVERTED),
+    motor4=Motor(IN1=Con tants.ChassisConstants.MOTOR4_IN1, IN2=Constants.ChassisConstants.MOTOR4_IN2, PWM=Constants.ChassisConstants.MOTOR4_PWM, inverted=Constants.ChassisConstants.MOTOR4_INVERTED)
+) """
 
-moveAction = RunAction("MoveAction", chassis_system.move)
+motor = Motor(IN1=Constants.ChassisConstants.MOTOR1_IN1, IN2=Constants.ChassisConstants.MOTOR1_IN2, PWM=Constants.ChassisConstants.MOTOR1_PWM, inverted=Constants.ChassisConstants.MOTOR1_INVERTED)
 
-from lib.math.robot_kinematics import Kinematics
 
-robot_kinematics = Kinematics()
+#moveAction = RunAction("MoveAction", chassis_system.move)
 
-move_action = RunAction("MoveAction", lambda: chassis_system.move(100, 0, 0))
+#from lib.math.robot_kinematics import Kinematics
 
-scheduler.schedule_action(move_action)
+#move_action = RunAction("MoveAction", lambda: chassis_system.move(100, 0, 0))
+
+#printAction = RunAction("Prin Action", lambda: print("HII"))
+
+#scheduler.schedule_action()
 
 while True:
-    scheduler.run()
+    motor.move_motor(100)
+    #scheduler.run()
 
 """ printAction = InstantAction("PrintAction", lambda: print("Hello World!"))
 
