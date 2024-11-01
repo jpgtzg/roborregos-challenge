@@ -17,29 +17,29 @@ class Action(ActionInterface):
         return self.requirements
         
     # Composition methods
-    def andThen(self, next_action) -> ActionInterface:
+    def andThen(self, next_action) -> 'Action':
         from lib.actions.sequential_action_group import SequentialActionGroup
         return SequentialActionGroup(self, next_action)
 
-    def withTimeout(self, timeout) -> ActionInterface:
+    def withTimeout(self, timeout) -> 'Action':
         from lib.actions.parallel_deadline_group import ParallelDeadlineGroup
         from lib.actions.wait_action import WaitAction
-        return ParallelDeadlineGroup(self, deadline_action=WaitAction(timeout))
+        return ParallelDeadlineGroup(WaitAction(timeout), self)
 
-    def alongWith(self, *actions) -> ActionInterface:
+    def alongWith(self, *actions) -> 'Action':
         from lib.actions.parallel_action_group import ParallelActionGroup
         return ParallelActionGroup(self, *actions)
 
-    def beforeStarting(self, *actions) -> ActionInterface:
+    def beforeStarting(self, *actions) -> 'Action':
         from lib.actions.sequential_action_group import SequentialActionGroup
         return SequentialActionGroup(*actions, self)
 
-    def until(self, condition) -> ActionInterface: 
+    def until(self, condition) -> 'Action': 
         from lib.actions.parallel_deadline_group import ParallelDeadlineGroup
         from lib.actions.wait_until_action import WaitUntilAction
         return ParallelDeadlineGroup(self, WaitUntilAction(condition))
     
-    def deadlineWith(self, *deadline_action) -> ActionInterface:
+    def deadlineWith(self, *deadline_action) -> 'Action':
         from lib.actions.parallel_deadline_group import ParallelDeadlineGroup
         return ParallelDeadlineGroup(*deadline_action, deadline_action=self)
     

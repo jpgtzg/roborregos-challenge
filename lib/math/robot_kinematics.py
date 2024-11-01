@@ -15,17 +15,7 @@ class Kinematics:
         self.config = config
 
     def get_wheel_velocities(self, vx: float, vy: float, w: float, phi: float) -> List[float]:
-        """
-        Calculate the wheel velocities based on the robot's current velocity and angular velocity. 
-
-        :param vx: The x component of the robot's velocity.
-        :param vy: The y component of the robot's velocity.
-        :param w: The robot's angular velocity.
-        :param phi: The robot's heading.
-        :return: The wheel velocities.
-        """
-
-        # Define the transformation matrix `t` correctly as a 2D array
+        """Calculate the wheel velocities based on the robot's current velocity and angular velocity."""
         t = np.array([
             [-math.sin(phi + math.pi/4), math.cos(phi + math.pi/4), self.config.robot_radius],
             [-math.sin(phi + 3 * math.pi/4), math.cos(phi + 3 * math.pi/4), self.config.robot_radius],
@@ -33,9 +23,15 @@ class Kinematics:
             [-math.sin(phi + 7 * math.pi/4), math.cos(phi + 7 * math.pi/4), self.config.robot_radius]
         ])
 
+        # Debug print statements to check matrix values and transformations
+        
         v = np.array([vx, vy, w])
         w = np.dot(t, v)
         w1, w2, w3, w4 = w[0], w[1], w[2], w[3]
+
+        # Debug print to check wheel velocities
+        print(f"Wheel velocities: {w1}, {w2}, {w3}, {w4}")
+
         return [w1, w2, w3, w4]
 
     
