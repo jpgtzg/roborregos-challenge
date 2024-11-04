@@ -16,7 +16,7 @@ maze.display()
 
 movements = []
 
-# Psuedo code for DFS
+# Code for DFS
 def dfs(x, y):
     maze.set_visited(x, y, True)
 
@@ -55,7 +55,7 @@ def dfs(x, y):
                 maze.add_wall_between(x, y, x - 1, y)
                 continue
 
-            moveForward() # add special casa for detexting the end of the maze
+            moveForward() # checks for end of the maze
             movements.append("Forward")
             print("Forward")
 

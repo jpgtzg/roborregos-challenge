@@ -1,3 +1,5 @@
+# Written by Juan Pablo Gutiérrez
+
 from abc import ABC, abstractmethod
 import time
 
@@ -21,3 +23,4 @@ class ActionInterface(ABC):
     @abstractmethod
     def end(self, interrupted: bool):
         pass
+

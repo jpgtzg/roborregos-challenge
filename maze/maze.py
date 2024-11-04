@@ -1,3 +1,5 @@
+# Written by Juan Pablo Gutiérrez
+
 from dataclasses import dataclass, field
 from maze.cell import Cell
 

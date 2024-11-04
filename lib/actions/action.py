@@ -1,3 +1,5 @@
+# Written by Juan Pablo Gutiérez
+
 from lib.actions.action_interface import ActionInterface
 from lib.system.system import System
 

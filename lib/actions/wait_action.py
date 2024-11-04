@@ -1,3 +1,6 @@
+# Written by Juan Pablo Gutiérrez
+# Waits for a specified duration
+
 from lib.actions.action import Action
 import time
 
@@ -19,3 +22,4 @@ class WaitAction(Action):
     def is_finished(self) -> bool:
         return time.time() - self.start_time >= self.duration
     
+

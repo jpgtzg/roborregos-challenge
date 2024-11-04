@@ -1,3 +1,6 @@
+# Written by Juan Pablo Gutiérrez
+# Action that starts and ends immediately
+
 from lib.actions.action import Action
 
 class InstantAction(Action):

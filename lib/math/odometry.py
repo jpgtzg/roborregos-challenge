@@ -1,3 +1,5 @@
+# Written by Juan Pablo Gutiérrez
+
 from dataclasses import dataclass
 from lib.math.wheel_velocities import WheelVelocities
 from lib.math.rotation2d import Rotation2d
@@ -41,3 +43,5 @@ class Odometry:
         pose = Pose2d(x, y, theta)
 
         return pose
+    
+    
