@@ -1,8 +1,8 @@
 
-from lib.actions.action import Action
+from lib.system.system import System
 from hardware.ultrasonic import Ultrasonic
 
-class Ultrasonics(Action):
+class Ultrasonics(System):
 
     def __init__(self, ultrasonic1: Ultrasonic, ultrasonic2 : Ultrasonic, ultrasonic3 : Ultrasonic):
         super().__init__("Ultrasonic System")
@@ -27,6 +27,18 @@ class Ultrasonics(Action):
         else:
             return -1
         pass
+
+    def check_left(self) -> bool:
+        return self.ultrasonic1.get_distance() < 0.1
+    
+    def check_right(self) -> bool:
+        return self.ultrasonic2.get_distance() < 0.1
+    
+    def check_forward(self) -> bool:
+        return self.ultrasonic3.get_distance() < 0.1
+    
+    def check_back(self) -> bool:
+        return self.ultrasonic3.get_distance() < 0.1
 
     def get_all_distances(self) -> list:
         return [self.ultrasonic1.get_distance(), self.ultrasonic2.get_distance(), self.ultrasonic3.get_distance()]

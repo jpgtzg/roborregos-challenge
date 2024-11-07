@@ -54,6 +54,29 @@ class Maze:
         """Set the visited status of the cell at the given coordinates."""
         self.grid[y][x].visited = visited
 
+    def find_nearest_color(self, x: int, y: int, color: str, final_x: int, final_y: int) -> tuple:
+        """Find the nearest cell of the given color to the cell at the given coordinates."""
+        queue = [(x, y)]
+        visited = set()
+
+        while queue:
+            x, y = queue.pop(0)
+            cell = self.grid[y][x]
+
+            if cell.color == color:
+                final_x = x
+                final_y = y
+                return x, y
+
+            visited.add((x, y))
+
+            for neighbor in self.get_neighbors(x, y):
+                nx, ny = neighbor.x, neighbor.y
+                if (nx, ny) not in visited:
+                    queue.append((nx, ny))
+        
+        return None  # If no cell of the given color is found
+
     def display(self):
         """Print a simple visual representation of the maze."""
         for row in self.grid:

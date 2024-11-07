@@ -6,12 +6,22 @@ class MoveToCoordinate(Action):
         self.x = desired_x
         self.y = desired_y
         self.chassis = chassis
+        super().__init__("MoveToCoordinate")
 
-    def execute(self, agent):
-        agent.move_to(self.x, self.y)
+    def execute(self):
+        current_x, current_y = self.chassis.get_position()
+        if current_x < self.x:
+            self.chassis.move_offset(1, 0)
+        elif current_x > self.x:
+            self.chassis.move_offset(-1, 0)
+        elif current_y < self.y:
+            self.chassis.move_offset(0, 1)
+        elif current_y > self.y:
+            self.chassis.move_offset(0, -1)
 
-    def is_finished(self, agent):
-        return agent.is_at(self.x, self.y)
+    def is_finished(self):
+        current_x, current_y = self.chassis.get_position()
+        return current_x == self.x and current_y == self.y
     
-    def end(self, agent):
-        agent.stop()
+    def end(self, interrupted: bool):
+        self.chassis.stop()

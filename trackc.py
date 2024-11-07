@@ -1,84 +1,43 @@
-from maze.cell import Cell
+from actions.maze_action import MazeAction
+from lib.actions.instant_action import InstantAction
+from actions.move_to_coordinate import MoveToCoordinate
+from systems.chassis import Chassis
+from systems.ultrasonics import Ultrasonics
 from maze.maze import Maze
+from lib.actions.action_scheduler import ActionScheduler
+from systems.display import Display
+from actions.balance_action import BalanceAction
 
-width, height = 5, 3
-maze = Maze(width, height)
+# FINALLY WORKED :))))
+def init_maze_action(maze: Maze, chassis_system: Chassis, ultrasonics: Ultrasonics, display : Display):
+    color_map = {}
+    color = "white"
+    final_x = -1
+    final_y = -1
 
-# Remove some walls to create paths
-maze.add_wall_between(1, 0, 1, 1)
-maze.add_wall_between(1, 1, 2, 1)
-maze.add_wall_between(2, 0, 2, 2)
-maze.add_wall_between(4, 1, 4, 0)
+    maze_action = MazeAction(maze, chassis_system, ultrasonics, color_map)
 
-maze.set_color(1, 0, "black")
+    find_color_action = InstantAction("Find Color", lambda: find_color_occurences(color_map, color=color))
 
-maze.display()
+    find_coordinates = InstantAction("Find Coordinates", lambda: maze.find_nearest_color(chassis_system.get_position()[0], chassis_system.get_position()[1], color, final_x, final_y))
 
-movements = []
+    move_to_coordinate = MoveToCoordinate(final_x, final_y, chassis_system)
 
-# Code for DFS
-def dfs(x, y):
-    maze.set_visited(x, y, True)
+    display_color = InstantAction("Display Color", lambda: display.display_string(color)) 
 
-    for neighbor in maze.get_neighbors(x, y):
-        if neighbor.visited:
-            continue
+    move_to_pre_end = MoveToCoordinate(-1, 0, chassis_system)
 
-        pos = maze.get_cell(x, y).get_relative_position(neighbor)
+    balance_action = BalanceAction(chassis_system, display)
 
-        if pos == "left":
-            if (checkLeftWall()):
-                maze.add_wall_between(x, y, x, y-1)
-                continue
-            moveLeft()
-            movements.append("Left")
-            print("Left")
+    move_to_post_end = MoveToCoordinate(-3, 0, chassis_system)
 
-        elif pos == "backward":
-            if(checkBackwardWall()):
-                maze.add_wall_between(x, y, x + 1, y)
-                continue
-            moveBackward()
-            movements.append("Backward")
-            print("Backward")
+    final_action = maze_action.andThen(find_color_action).andThen(find_coordinates).andThen(move_to_coordinate).andThen(display_color).andThen(move_to_pre_end).andThen(balance_action).andThen(move_to_post_end)
 
-        elif pos == "right":
-            if(checkRightWall()):
-                maze.add_wall_between(x, y, x, y+1)
-                continue
-            moveRight()
-            movements.append("Right")
-            print("Right")
+    ActionScheduler().schedule_action(final_action)
 
-        elif pos == "forward":
-            if(checkForwardWall()):
-                maze.add_wall_between(x, y, x - 1, y)
-                continue
-
-            moveForward() # checks for end of the maze
-            movements.append("Forward")
-            print("Forward")
-
-        dfs(neighbor.x, neighbor.y)
-
-    # Backtrack when all neighbors are visited or blocked
-    if movements:
-        last_move = movements.pop()
-        inverseMove(last_move)  # Assume inverseMove reverses the last move
-        print(f"Backtracking: {last_move}")
-    else: 
-        print("Maze traversal complete")
-        return
-
-#dfs(4, 1)
-#print(visited)
-
-cell = maze.get_cell(3, 1)
-neighbors = maze.get_neighbors(3, 1)
-
-for neighbor in neighbors:
-    print(f"Cell: {cell.x}, {cell.y} | Neighbor: {neighbor.x}, {neighbor.y}")
-    print(cell.get_relative_position(neighbor))
-
-maze.display()
-# Display the maze structure after DFS
+def find_color_occurences(color_map : map, color : str):
+    # Find the color that happens 5 times
+    for color in color_map:
+        if color_map[color] == 5:
+            color = color
+            break

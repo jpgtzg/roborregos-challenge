@@ -10,6 +10,8 @@ chassis_system = None
 intake = None
 ultrasonics = None
 
+track = 1
+
 def initSystems():
     
     chassis_system = Chassis(
@@ -33,7 +35,19 @@ def initSystems():
     ActionScheduler().register_system(chassis_system, intake, ultrasonics)
 
 def start():
+
+    initSystems()
+
+    if track == 1:
+        pass
+    elif track == 2:
+        pass
+    else:
+        pass
+
     pass
 
 def update():
+    while True:
+        ActionScheduler().run()
     pass

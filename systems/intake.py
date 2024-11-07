@@ -1,7 +1,7 @@
-from lib.actions.action import Action
+from lib.system.system import System
 from hardware.motor import Motor
 
-class Intake(Action):
+class Intake(System):
     def __init__(self, intake, left_motor : Motor, right_motor: Motor):
         super().__init__("Intake System")
         self.intake = intake

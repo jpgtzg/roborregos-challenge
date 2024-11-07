@@ -15,7 +15,11 @@ class InstantAction(Action):
         pass
 
     def end(self, interrupted: bool):
-        pass
+        #Check if function has a return value
+        if self.function.__code__.co_argcount > 0:
+            return self.function()
+        else:
+            pass
 
     def is_finished(self) -> bool:
         return True
