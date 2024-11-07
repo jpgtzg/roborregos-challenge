@@ -1,6 +1,5 @@
 numpy==2.1.2
 RPi.GPIO==0.7.1
 simple-pid==2.0.1
-python3-smbus
-i2c-tools
-python3-smbus
+smbus2
+#i2c-tools
